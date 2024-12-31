@@ -7,21 +7,34 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    return render(request,'index.html')
+    featured_products=Product.objects.order_by('priority')[:4]
+    latest_products=Product.objects.order_by('-id')
+    context={
+        'featured_products': featured_products,
+        'latest_products': latest_products
+        
+    }
+    
+  
+    
+    return render(request,'index.html',context)
 
 
 def product_list(request):
-    page=1
-    if request.GET:
-        page=request.GET.get('page',1)
+    page=1    #paginator
+    if request.GET:  #paginator
+        page=request.GET.get('page',1) #paginator
         
-    product_list=Product.objects.all()
-    product_paginator=Paginator(product_list,4)
-    product_list=product_paginator.get_page(page)
+    product_list=Product.objects.order_by('priority')
+    
+    product_paginator=Paginator(product_list,4) #paginator
+    product_list=product_paginator.get_page(page) #paginator
+    
     context={'product_list': product_list}
     return render(request,'product_list.html',context)
 
-def detail_product_list(request):
+def detail_product_list(request,pk):
     
-    product_list=Product.objects.all(pk=pk)
-    return render(request,'detail_product_list.html')
+    product_detailslist=Product.objects.get(pk=pk)
+    context={'product_detailslist':product_detailslist}
+    return render(request,'detail_product_list.html',context)
