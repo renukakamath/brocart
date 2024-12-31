@@ -11,3 +11,5 @@ def product_list(request):
 
 def detail_product_list(request):
     return render(request,'detail_product_list.html')
+def account(request):
+    return render(request,'account.html')
