@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from product import views
+from customers import views
 
 urlpatterns = [
+    
+    
     
     path('account/',views.account,name='account'),
 ]
