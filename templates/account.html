@@ -23,19 +23,42 @@
                             <span onclick="register()">Register</span>
                             <hr id="Indicator">
                         </div>
-                        <form id="LoginForm">
-                            <input type="text" placeholder="Username">
-                            <input type="password" placeholder="Password">
-                            <button type="submit" class="btn">Login</button>
+                        <form id="LoginForm"  method="post">
+                            {% csrf_token %}
+                            <input type="text"  name="username" required placeholder="Username">
+                            <input type="password" name="password" required placeholder="Password">
+                            <button type="submit"  name="login" class="btn">Login</button>
+                            {% if messages %}
+                            <div>
+                               
+                                
+                                <p id="message">{{message}}</p>
+                              
+                            </div>
+                            {% endif %}
                             <a href="">Forget Password</a>
                         </form>
 
-                        <form id="RegForm">
-                            <input type="text" placeholder="Username">
-                            <input type="email" placeholder="Email">
-                            <input type="password" placeholder="Password">
-                            <button type="submit" class="btn">Register</button>
+                        <form id="RegForm" method="post">
+                            {% csrf_token %}
+                            <input type="text" name="username" required  placeholder="Username">
+                            <input type="email"  name="email" required placeholder="Email">
+                            <input type="password"  name="password" required placeholder="Password">
+                           <input type="text" name="address" required placeholder="address">
+                            <input type="text" name="number" required placeholder="number">
+                            <button type="submit"  name="register" class="btn">Register</button>
+                            {% if messages %}
+                        <div>
+                        
+
+                            <p id="message">{{message}}</p>
+                        
+                        </div>
+                        {% endif %}
                         </form>
+
+
+                        
                     </div>
                 </div>
             </div>
@@ -77,6 +100,9 @@
             Indicator.style.transform = "translate(0px)";
 
         }
+     window.onload = function () {
+            login();
+        };
     </script>
 
     {% endblock content %}

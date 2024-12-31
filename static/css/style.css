@@ -381,14 +381,23 @@ th:last-child{
 }
 
 /* Account page */
+
+#message{
+
+    color:red;
+    height: 5px;
+    
+
+}
 .account-page{
     padding: 50px 0;
     background: radial-gradient(#fff, #ffd6d6);
 }
+
 .form-container{
     background: #fff;
     width: 300px;
-    height: 400px;
+    height: 500px;
     position: relative;
     text-align: center;
     padding: 20px 0;
