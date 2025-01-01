@@ -21,5 +21,6 @@ from orders import views
 
 urlpatterns = [
     
-    path('cart/',views.cart,name='cart'),
+    path('cart/',views.showcart,name='cart'),
+    path('add_cart/',views.add_cart,name='add_cart'),
 ]

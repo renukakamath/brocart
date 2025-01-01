@@ -71,6 +71,20 @@ p{
 .btn:hover{
     background: #563434;
 }
+
+
+.btnss{
+    display: inline-block;
+    background: #ff523b;
+    color: white;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border-radius: 30px;
+    transition: background 0.5s;
+}
+.btnss:hover{
+    background: #563434;
+}
 .header{
     background: radial-gradient(#fff,#ffd6d6);
 }
