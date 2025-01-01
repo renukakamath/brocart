@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
 from orders.models import Order,OrderItem
 from product.models import Product
+from django.contrib import messages
 
 # Create your views here.
 def showcart(request):
     user = request.user
-    customer =user.customer_profile
+    customer = user.customer_profile
     cart_obj,created=Order.objects.get_or_create(
         owner=customer,
         order_status=Order.CART_STAGE
@@ -46,6 +47,50 @@ def add_cart(request):
         
    
     return redirect('cart')
+
+
+def remove_cart_item(request,pk):
+    item=OrderItem.objects.get(pk=pk)
+    if item:
+        item.delete()
+    return redirect('cart')
+
+
+
+def checkout_order(request):
+    try:
+        if request.POST:
+            user = request.user
+            customer = user.customer_profile
+            totals = float(request.POST.get('total'))  # Make sure 'total' is coming from the frontend
+
+            # Get the order object in the cart stage
+            order_obj = Order.objects.get(
+                owner=customer,
+                order_status=Order.CART_STAGE
+            )
+
+            if order_obj:
+                # Set the order to ORDER_CONFIRMED
+                order_obj.order_status = Order.ORDER_CONFIRMED
+                # Assign the total price to the order
+                order_obj.total_price = totals
+                # Save the order object with the updated status and total price
+                order_obj.save()
+                status_message = "Your order is processed. Your item will be delivered within 2 days."
+                messages.success(request, status_message)
+            else:
+                status_message = "Your order was not processed."
+                messages.error(request, status_message)
+
+    except Exception as e:
+        status_message = "Your order was not processed."
+        messages.error(request, status_message)
+
+    # Redirect the user back to the cart page
+    return redirect('cart')
+
+
 
 
     

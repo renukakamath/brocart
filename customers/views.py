@@ -23,7 +23,7 @@ def account(request):
             address = request.POST.get('address')
             phone = request.POST.get('phone')
             user = User.objects.create_user(username=username, password=password, email=email)
-            customer = Customer.objects.create(user=user, address=address, phone=phone)
+            customer = Customer.objects.create(name=username, user=user, address=address, phone=phone)
             return redirect('account')
         except Exception as e:
             error_messages='Duplicate username or invalid'
